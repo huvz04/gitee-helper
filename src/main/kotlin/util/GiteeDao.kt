@@ -13,20 +13,20 @@ import java.util.concurrent.TimeUnit
 class GiteeDao {
     companion object{
 
-        suspend fun getImg(name:String ): ExternalResource?{
+        suspend fun getImg(name:String ): ExternalResource {
+
             val options  = ChromeOptions();
 
             options.addArguments("--headless");
             //填入无头配置
             val driver: WebDriver = ChromeDriver(options)
-
-            driver.manage().window().size = Dimension(1300,620)
+            driver.manage().window().size = Dimension(1448,979)
             val jsExecutor = driver as JavascriptExecutor
             jsExecutor.executeScript("document.body.style.overflow = 'hidden';")
-                driver.get("https://gitee.com/${name}")
+            driver.get("https://gitee.com/${name}")
             GiteePlugin.logger.info("进入网站成功")
                 // 设置隐式等待时间
-                driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS)
+                driver.manage().timeouts().implicitlyWait(400, TimeUnit.MILLISECONDS)
                 val screenshot: File = (driver as TakesScreenshot).getScreenshotAs(OutputType.FILE)
                 // 保存截图为图片文件
                 val outputImageFile = File(GiteePlugin.dataFolder.absolutePath+"\\TEMP\\${name}.png")

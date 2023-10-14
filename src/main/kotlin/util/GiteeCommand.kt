@@ -15,7 +15,7 @@ object GiteeCommand : SimpleCommand(GiteePlugin,"gitee",description = "获取git
         suspend fun handler(sender: CommandSender, msg:String ){
 
             val imgs = GiteeDao.getImg(msg)
-            var img = sender.subject?.let { imgs?.uploadAsImage(it) }
+            val img = sender.subject?.let { imgs.uploadAsImage(it) }
 
             img?.let { sender.sendMessage(it) }
 
