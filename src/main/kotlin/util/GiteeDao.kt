@@ -1,7 +1,10 @@
 package io.huvz.gitee.util
 
 import io.huvz.gitee.GiteePlugin
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import net.mamoe.mirai.console.command.ConsoleCommandSender.name
 import net.mamoe.mirai.utils.ExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import org.openqa.selenium.*
@@ -13,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class GiteeDao {
     companion object{
 
-        suspend fun getImg(name:String ): ExternalResource {
+        suspend fun getImg(name:String ): ExternalResource = withContext(Dispatchers.IO){
 
             val options  = ChromeOptions();
 
@@ -36,7 +39,7 @@ class GiteeDao {
 
             // 关闭浏览器
             driver.quit()
-            return outputImageFile.toExternalResource().toAutoCloseable()
+            outputImageFile.toExternalResource().toAutoCloseable()
         }
     }
 
