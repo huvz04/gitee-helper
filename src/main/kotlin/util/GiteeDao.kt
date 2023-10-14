@@ -13,6 +13,10 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.io.FileHandler
 import java.io.File
 import java.util.concurrent.TimeUnit
+
+/**
+ * Gitee查询工具
+ */
 class GiteeDao {
     companion object{
 

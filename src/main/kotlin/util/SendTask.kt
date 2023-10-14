@@ -10,6 +10,9 @@ import net.mamoe.mirai.message.data.Message
 import net.mamoe.mirai.message.data.MessageChain
 import kotlin.random.Random
 
+/**
+ * 统一任务发送
+ */
 class SendTask {
 
 

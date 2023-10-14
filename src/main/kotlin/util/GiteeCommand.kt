@@ -9,6 +9,9 @@ import net.mamoe.mirai.message.data.Image
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
 import org.checkerframework.checker.units.qual.t
 
+/**
+ * Gitee控制
+ */
 object GiteeCommand : SimpleCommand(GiteePlugin,"gitee",description = "获取gitee用户") {
 
         @Handler
