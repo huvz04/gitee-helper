@@ -1,13 +1,12 @@
 package io.huvz.gitee
 
 
-import io.huvz.gitee.util.ChromeConfig
+import io.huvz.gitee.GiteePlugin.reload
 import io.huvz.gitee.util.GiteeCommand
 import net.mamoe.mirai.console.command.CommandManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
-import javax.imageio.spi.RegisterableService
 
 
 object GiteePlugin : KotlinPlugin(
@@ -17,11 +16,11 @@ object GiteePlugin : KotlinPlugin(
         version = "0.1.1",
     ) {
         author("huvz")
+        dependsOn("xyz.cssxsh.mirai.plugin.mirai-selenium-plugin", true)
     }
 ) {
     override fun onEnable() {
-        ChromeConfig.reload()
         CommandManager.registerCommand(GiteeCommand)
-        logger.info { "Plugin loaded" }
+        logger.info { "Gitee Plugin loaded" }
     }
 }
