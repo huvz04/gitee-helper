@@ -11,36 +11,35 @@ import net.mamoe.mirai.message.data.MessageChain
 import net.mamoe.mirai.utils.ExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.toExternalResource
 import net.mamoe.mirai.utils.ExternalResource.Companion.uploadAsImage
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.File
 import java.io.FileOutputStream
+import java.util.concurrent.TimeUnit
 
 /**
- * Gitee控制
+ * Gitee
  */
-object GiteeCommand : SimpleCommand(GiteePlugin,"gitee",description = "获取gitee用户") {
+
+object GiteeCommand : SimpleCommand(GiteePlugin,"GiteeInfo",description = "获取gitee用户") {
+
 
         @Handler
         suspend fun handler(sender: CommandSender, msg:String ){
-
-            val imgs = GiteeDao.getImg(msg)
-            if(imgs!=null){
-                val bt :ExternalResource = imgs.toExternalResource();
-                sendMessage(sender,bt.uploadAsImage(sender.subject!!));
-                //saveByteArrayAsImage(imgs,"C:\\Users\\dache\\Desktop\\F\\mcl-2.1.2\\data")
-            }
-            else{
-                sender.subject?.let { sendMessage(it, "没有结果！") }
+            val client = OkHttpClient().newBuilder()
+                .connectTimeout(30, TimeUnit.SECONDS) // 设置连接超时时间为 30 秒
+                .readTimeout(30, TimeUnit.SECONDS) // 设置读取超时时间为 30 秒
+                .build()
+            try{
+                val nurl = "http://43.142.135.84:9085/v2api/view/gitee?name=${msg}"
+                val request: Request = Request.Builder().url(nurl).get().build()
+                val imgs = client.newCall(request).execute();
+                val bt : ExternalResource? = imgs.body?.bytes()?.toExternalResource();
+                bt?.uploadAsImage(sender.subject!!)?.let { sendMessage(sender, it) };
+            }catch (e:Exception){
+                sender.subject?.let { sendMessage(it,"唔~！服务器好像开小差了") }
             }
 
         }
-
-    fun saveByteArrayAsImage(byteArray: ByteArray, outputPath: String) {
-        val file = File(outputPath)
-        val outputStream = FileOutputStream(file)
-        outputStream.write(byteArray)
-        outputStream.close()
-    }
-
-
 
 }
