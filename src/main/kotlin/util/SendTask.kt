@@ -1,6 +1,6 @@
-package io.huvz.gitee.util
+package io.huvz.webinfo.util
 
-import io.huvz.gitee.GiteePlugin.logger
+import io.huvz.webinfo.WebinfoPlugin.logger
 import kotlinx.coroutines.delay
 import net.mamoe.mirai.console.command.CommandSender
 import net.mamoe.mirai.contact.Contact

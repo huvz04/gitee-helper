@@ -1,27 +1,26 @@
-package io.huvz.gitee
+package io.huvz.webinfo
 
 
-import io.huvz.gitee.GiteePlugin.reload
-import io.huvz.gitee.util.GiteeCommand
-import io.huvz.gitee.util.GiteeUser
+import io.huvz.webinfo.util.GiteeUser
+import io.huvz.webinfo.util.Infochat
 import net.mamoe.mirai.console.command.CommandManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
 
 
-object GiteePlugin : KotlinPlugin(
+object WebinfoPlugin : KotlinPlugin(
     JvmPluginDescription(
-        id = "io.huvz.gitee",
-        name = "gitee-helper",
-        version = "0.2",
+        id = "io.huvz.webinfo",
+        name = "webinfo-helper",
+        version = "0.3",
     ) {
         author("huvz")
     }
 ) {
     override fun onEnable() {
-        CommandManager.registerCommand(GiteeCommand)
         CommandManager.registerCommand(GiteeUser)
-        logger.info { "Gitee Plugin loaded" }
+        CommandManager.registerCommand(Infochat)
+        logger.info { "webinfo Plugin loaded" }
     }
 }

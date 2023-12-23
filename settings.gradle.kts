@@ -1,1 +1,1 @@
-rootProject.name = "io.huvz.gitee"
+rootProject.name = "io.huvz.webinfo"
